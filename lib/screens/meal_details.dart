@@ -24,8 +24,15 @@ class MealDetailsScreen extends ConsumerWidget {
                   content: Text(isAdded
                       ? 'Meal Added to Favourites Successfully!!'
                       : 'Meal Removed from Favourites Successfully'),),);
+              
             },
-            icon: const Icon(Icons.star),
+            /// Here to show the color of the icon I probably need to create another provider.
+            icon: Icon(
+              Icons.star,
+              color: ref.watch(favouriteProvider).contains(meal)
+                  ? Theme.of(context).colorScheme.primary
+                  : null,
+            ),
           )
         ]),
         body: SingleChildScrollView(

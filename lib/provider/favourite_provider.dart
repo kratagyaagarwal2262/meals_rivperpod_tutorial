@@ -21,13 +21,13 @@ class FavouriteMealsNotifier extends StateNotifier<List<Meal>> {
 
     if (isFavourite) {
       // Since we cannot add or remove data from the list, we will change the value of the "State" itself
-
       state = state
           .where(
-            (element) => element.id != meals.id,
+            (element) => element.id != meals.id
           )
           .toList();
           return false;
+      
     } else {
       state = [...state, meals];
       return true;
