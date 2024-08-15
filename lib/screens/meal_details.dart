@@ -27,14 +27,21 @@ class MealDetailsScreen extends ConsumerWidget {
         appBar: AppBar(title: Text(meal.title), actions: [
           IconButton(
             onPressed: () {
-            bool isFav =  ref.watch(favouriteProviderNotifier.notifier).addFavroutie(meal);
+              bool isFav = ref
+                  .watch(favouriteProviderNotifier.notifier)
+                  .addFavroutie(meal);
             if (isFav == true) {
               _showInfoMessage("Marked as a favorite!", context);
             } else {
               _showInfoMessage("Meal is no longer a favorite.", context);
             }
             },
-            icon: const Icon(Icons.star),
+            icon: Icon(
+              Icons.star,
+              color: ref.watch(favouriteProviderNotifier).contains(meal) == true
+                  ? Theme.of(context).colorScheme.primary
+                  : null,
+            ),
           )
         ]),
         body: SingleChildScrollView(
