@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:meals/screens/tabs.dart';
+
+import 'models/meal.dart';
 
 final theme = ThemeData(
   useMaterial3: true,
@@ -12,7 +15,14 @@ final theme = ThemeData(
   textTheme: GoogleFonts.latoTextTheme(),
 );
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(MealAdapter());
+  Hive.registerAdapter(ComplexityAdapter());
+  Hive.registerAdapter(AffordabilityAdapter());
   runApp(
     const ProviderScope(
       child: App(),

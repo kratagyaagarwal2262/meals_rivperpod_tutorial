@@ -26,15 +26,21 @@ class MealDetailsScreen extends ConsumerWidget {
     return Scaffold(
         appBar: AppBar(title: Text(meal.title), actions: [
           IconButton(
-            onPressed: () {
-              bool isFav = ref
+          onPressed: () async {
+            await ref
                   .watch(favouriteProviderNotifier.notifier)
-                  .addFavroutie(meal);
-            if (isFav == true) {
+                .addFavroutie(meal)
+                .then((isFav) {
+              if (isFav == true) {
               _showInfoMessage("Marked as a favorite!", context);
             } else {
               _showInfoMessage("Meal is no longer a favorite.", context);
             }
+            }).catchError((onError) {
+              _showInfoMessage(
+                  "Something went wrong which is = $onError", context);
+            });
+           
             },
             icon: Icon(
               Icons.star,
